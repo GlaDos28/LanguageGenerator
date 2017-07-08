@@ -1,6 +1,4 @@
-package structures.bnf.productions.misc.nonterminalOrChar;
-
-import structures.bnf.productions.misc.NTStrChr;
+package structures.bnf.productions.misc.elements;
 
 /**
  * Char as a terminal.
@@ -20,8 +18,8 @@ public final class BNF_Char implements NonterminalOrChar {
 	}
 
 	@Override
-	public NTStrChr getType() {
-		return NTStrChr.CHAR;
+	public ElemType getType() {
+		return ElemType.CHAR;
 	}
 
 	@Override

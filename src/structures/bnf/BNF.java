@@ -2,7 +2,7 @@ package structures.bnf;
 
 import structures.bnf.productions.BNF_BasicProduction;
 import structures.bnf.productions.BNF_LexemeProduction;
-import structures.bnf.productions.misc.BNF_NT;
+import structures.bnf.productions.misc.elements.BNF_NT;
 
 import java.util.ArrayList;
 
@@ -29,12 +29,24 @@ public final class BNF {
 		return this.getNonterminal(nonterminalId.get());
 	}
 
+	public int getNonterminalNum() {
+		return this.nonterminals.size();
+	}
+
 	public BNF_LexemeProduction getLexeme(int lexemeId) {
 		return (BNF_LexemeProduction) this.getNonterminal(lexemeId);
 	}
 
 	public BNF_LexemeProduction getLexeme(BNF_NT lexemeId) {
 		return this.getLexeme(lexemeId.get());
+	}
+
+	public BNF_LexemeProduction getLemexeFromList(int lexemeIndex) {
+		return this.lexemes.get(lexemeIndex);
+	}
+
+	public int getLexemeNum() {
+		return this.lexemes.size();
 	}
 
 	public int addNonterminal(BNF_BasicProduction nonterminal) {
