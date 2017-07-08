@@ -1,5 +1,10 @@
 package structures.bnf.productions.misc.elements;
 
+import structures.token.Token;
+import util.SemanticRule;
+
+import java.util.ArrayList;
+
 /**
  * Semantic rule as an element in elements production.
  *
@@ -7,14 +12,14 @@ package structures.bnf.productions.misc.elements;
  * @since 07.07.17
  */
 public final class BNF_SRule implements Element {
-	private final Runnable runnable;
+	private final SemanticRule semanticRule;
 
-	public BNF_SRule(Runnable runnable) {
-		this.runnable = runnable;
+	public BNF_SRule(SemanticRule semanticRule) {
+		this.semanticRule = semanticRule;
 	}
 
-	public void executeRule() {
-		this.runnable.run();
+	public Runnable extractRunnable(ArrayList<Token> tokens) {
+		return this.semanticRule.extractRunnable(tokens.toArray(new Token[0]));
 	}
 
 	@Override
@@ -24,6 +29,6 @@ public final class BNF_SRule implements Element {
 
 	@Override
 	public String toString() {
-		return "semantic rule <" + runnable + ">";
+		return "semantic rule { " + this.semanticRule + " }";
 	}
 }

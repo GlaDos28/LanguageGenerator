@@ -3,7 +3,7 @@ package util.exceptions;
 import structures.misc.Pos;
 
 /**
- * Exceptions thrown by a lexeme analyzer.
+ * Exceptions thrown by a lexical analyzer.
  *
  * @author GlaDos
  * @since 07.07.17
@@ -11,6 +11,10 @@ import structures.misc.Pos;
 public final class LexerException extends Exception {
 	private final char symbol;
 	private final Pos  pos;
+
+	public LexerException() {
+		this(null, '\0', null);
+	}
 
 	public LexerException(char symbol, Pos pos) {
 		this(null, symbol, pos);

@@ -20,7 +20,9 @@ import java.util.Set;
  * @since 03.07.17
  */
 public final class BNF_LexemeProduction extends BNF_BasicProduction {
-	public static final BNF_LexemeProduction EPSILON = new BNF_LexemeProduction("", new ArrayList<>());
+	public BNF_LexemeProduction(String name) {
+		super(name);
+	}
 
 	public BNF_LexemeProduction(String name, Element[][] productionsElements) {
 		super(name, productionsElements);

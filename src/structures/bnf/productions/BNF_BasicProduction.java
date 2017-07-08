@@ -17,27 +17,21 @@ import java.util.Set;
  * @since 03.07.17
  */
 public class BNF_BasicProduction implements BNF_Production {
-	public static final BNF_BasicProduction EPSILON = new BNF_BasicProduction("", new ArrayList<>());
+	protected final String name;
+	protected Element[][]  productionsElements; /* two-dim because of | operation */
 
-	protected final String  name;
-	protected final Element[][] productionsElements; /* two-dim because of | operation */
+	public BNF_BasicProduction(String name) {
+		this(name, (Element[][]) null);
+	}
 
 	public BNF_BasicProduction(String name, Element[][] productionsElements) {
 		this.name = name;
-		this.productionsElements = productionsElements;
+		this.setElements(productionsElements);
 	}
 
-	public BNF_BasicProduction(String name, ArrayList<ArrayList<Element>> statementElements) {
+	public BNF_BasicProduction(String name, ArrayList<ArrayList<Element>> productionsElements) {
 		this.name = name;
-		this.productionsElements = new Element[statementElements.size()][];
-
-		for (int i = 0; i < statementElements.size(); i++) {
-			ArrayList<Element> statementElementsOption = statementElements.get(i);
-			this.productionsElements[i] = new Element[statementElementsOption.size()];
-
-			for (int j = 0; j < statementElementsOption.size(); j++)
-				this.productionsElements[i][j] = statementElementsOption.get(j);
-		}
+		this.setElements(productionsElements);
 	}
 
 	public final String getName() {
@@ -46,6 +40,22 @@ public class BNF_BasicProduction implements BNF_Production {
 
 	public final Element[][] getProductionsElements() {
 		return this.productionsElements;
+	}
+
+	public final void setElements(Element[][] productionsElements) {
+		this.productionsElements = productionsElements;
+	}
+
+	public final void setElements(ArrayList<ArrayList<Element>> productionElements) {
+		this.productionsElements = new Element[productionElements.size()][];
+
+		for (int i = 0; i < productionElements.size(); i++) {
+			ArrayList<Element> statementElementsOption = productionElements.get(i);
+			this.productionsElements[i] = new Element[statementElementsOption.size()];
+
+			for (int j = 0; j < statementElementsOption.size(); j++)
+				this.productionsElements[i][j] = statementElementsOption.get(j);
+		}
 	}
 
 	@Override

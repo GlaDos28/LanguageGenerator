@@ -23,6 +23,16 @@ public final class BNF_Char implements NonterminalOrChar {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof BNF_Char && ((BNF_Char) obj).chr == this.chr;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.chr;
+	}
+
+	@Override
 	public String toString() {
 		return String.valueOf(this.chr);
 	}
