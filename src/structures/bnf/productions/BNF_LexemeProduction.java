@@ -37,15 +37,20 @@ public final class BNF_LexemeProduction extends BNF_BasicProduction {
 		Set<NonterminalOrChar> res = new HashSet<>();
 
 		for (Element[] productionElements : this.productionsElements) {
+			if (productionElements.length == 0)
+				continue;
+
 			Element firstElement = productionElements[0];
 
 			if (ElemType.NONTERMINAL.equals(firstElement.getType()))
 				res.addAll(bnf.getLexeme((BNF_NT) firstElement).getFirst(bnf));
 			else if (ElemType.STRING.equals(firstElement.getType())) {
 				String firstElementString = ((BNF_String) firstElement).get();
-				res.add((firstElementString.isEmpty()) ?
-					new BNF_Char('\0') : /* do not use in the grammar! */
-					new BNF_Char(firstElementString.charAt(0)));
+
+				if (firstElementString.isEmpty())
+					throw new RuntimeException("empty terminals not allowed; for epsilon value use empty list of elements");
+
+				res.add(new BNF_Char(firstElementString.charAt(0)));
 			}
 			else
 				throw new RuntimeException("invalid element in lexeme production: " + firstElement.getType());

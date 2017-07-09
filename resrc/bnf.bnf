@@ -1,0 +1,22 @@
+<Digit>           ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 .
+<Letter>          ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z .
+<Capital_Letter>  ::= A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z .
+<Spec_Symbol>     ::= _ | ' | " | ! | ? | - | + | = | / | , | { | } | [ | ] | ( \ ) | * | & | ^ | % | $ | # | @ | № | : | ; | > | ` | ~ | <Extra_Symbol> .
+<Extra_Symbol>    ::= \. | \\ | \< | \| .
+<Any_Letter>      ::= <Letter> | <Capital_Letter> .
+<Capital_Word>    ::= <Capital_Letter> <Capital_Word> | <Capital_Letter> .
+<Identifier>      ::= _ <Identifier_Body> <Identifier_Tail> | <Any_Letter> <Identifier_Body> <Identifier_Tail> .
+<Identifier_Body> ::= <Any_Letter> <Identifier_Body> | <Digit> <Identifier_Body> | _ <Identifier_Body> | .
+<Identifier_Tail> ::= ' <Identifier_Tail> | .
+<Symbols>         ::= <Any_Letter> <Symbols'> | <Digit> <Symbols'> | <Spec_Symbol> <Symbols'>.
+<Symbols'>        ::= <Any_Letter> <Symbols'> | <Digit> <Symbols'> | <Spec_Symbol> <Symbols'> | .
+
+ENABLE AUTO_WS
+
+<BNF>         ::= <State> <BNF> | <Macro> <BNF> | .
+<State>       ::= \< <Identifier> > ::= <Expression> \. .
+<Expression>  ::= <Element> <Expression'> .
+<Expression'> ::= \| <Element> <Expression'> | .
+<Macro>       ::= ENABLE <Capital_Word> | DISABLE <Capital_Word> .
+<Element>     ::= <Identifier> <Element'> | <Extra_Symbol> <Element'> | <Symbols> <Element'> .
+<Element'>    ::= <Identifier> <Element'> | <Extra_Symbol> <Element'> | <Symbols> <Element'> | .

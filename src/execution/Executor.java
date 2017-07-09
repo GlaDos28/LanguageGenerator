@@ -137,6 +137,8 @@ public final class Executor {
 		if (!isRead)
 			throw new LexerException("cannot read symbols from position " + this.textLCPos, this.text.charAt(this.textPos), this.textLCPos);
 
+		//System.out.println("DEBUG: " + lexeme.getName() + " | " + this.text.substring(savedTextPos, this.textPos)); /* for debug */
+
 		this.tokens.add(new Token(savedTextLCPos, lexeme.getName(), this.text.substring(savedTextPos, this.textPos)));
 		return this.tokens.get(this.tokenPos);
 	}
@@ -158,9 +160,6 @@ public final class Executor {
 
 					if (elem instanceof BNF_NT) {
 						BNF_NT nt = (BNF_NT) elem;
-
-						if (nt.get() == -1) /* epsilon */
-							continue;
 
 						BNF_BasicProduction elementProds = bnf.getNonterminal(nt);
 
@@ -185,6 +184,7 @@ public final class Executor {
 			}
 			catch (ParserException ex) {
 				this.tokenPos = savedTokenPos;
+				pickedTokens.clear();
 
 				if (i == prodsElems.length - 1) {
 					Token token = this.tokens.get(this.tokenPos + 1);
