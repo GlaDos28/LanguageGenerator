@@ -185,6 +185,7 @@ public final class Executor {
 			catch (ParserException ex) {
 				this.tokenPos = savedTokenPos;
 				pickedTokens.clear();
+				rules.clear();
 
 				if (i == prodsElems.length - 1) {
 					Token token = this.tokens.get(this.tokenPos + 1);
